@@ -13,6 +13,7 @@
   </thead>
 
   <tbody>
+
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
@@ -27,5 +28,5 @@
 </table>
 
 <br>
-
+<p><%= @users.to_a %></p>
 <%= link_to 'New User', new_user_path %>

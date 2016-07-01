@@ -1,0 +1,121 @@
+diff --git a/Gemfile b/Gemfile
+index 870e90a..11ec44c 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -3,7 +3,7 @@ source 'https://rubygems.org'
+ 
+ # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+ gem 'rails', '4.2.3'
+-gem 'bcrypt',         '3.1.11'
++gem 'bcrypt'
+ gem 'bootstrap-sass',       '3.2.0.0'
+ # Use sqlite3 as the database for Active Record
+ gem 'sqlite3'
+diff --git a/Gemfile.lock b/Gemfile.lock
+index f67eea1..b082a06 100644
+--- a/Gemfile.lock
++++ b/Gemfile.lock
+@@ -161,7 +161,7 @@ PLATFORMS
+   ruby
+ 
+ DEPENDENCIES
+-  bcrypt (= 3.1.11)
++  bcrypt
+   bootstrap-sass (= 3.2.0.0)
+   byebug
+   coffee-rails (~> 4.1.0)
+diff --git a/app/assets/stylesheets/custom.scss b/app/assets/stylesheets/custom.scss
+index a2e1549..fc3dc86 100644
+--- a/app/assets/stylesheets/custom.scss
++++ b/app/assets/stylesheets/custom.scss
+@@ -84,4 +84,20 @@ footer {
+    footer ul li {
+      float: left;
+      margin-left: 15px;
++}
++
++@mixin box_sizing {
++  -moz-box-sizing:    border-box;
++  -webkit-box-sizing: border-box;
++  box-sizing:         border-box;
++}
++
++/* miscellaneous */
++
++.debug_dump {
++  clear: both;
++  float: left;
++  width: 100%;
++  margin-top: 45px;
++  @include box_sizing;
+ }
+\ No newline at end of file
+diff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb
+index bf4501e..c7dc0bf 100644
+--- a/app/controllers/users_controller.rb
++++ b/app/controllers/users_controller.rb
+@@ -7,9 +7,12 @@ class UsersController < ApplicationController
+     @users = User.all
+   end
+ 
++
+   # GET /users/1
+   # GET /users/1.json
+   def show
++    @user = User.find(params[:id])
++    # debugger
+   end
+ 
+   # GET /users/new
+diff --git a/app/models/user.rb b/app/models/user.rb
+index 6b7b721..6d0fe00 100644
+--- a/app/models/user.rb
++++ b/app/models/user.rb
+@@ -9,5 +9,5 @@ class User < ActiveRecord::Base
+   uniqueness: { case_sensitive: false }
+   validates :password_digest, presence: true
+ 
+-  has_secure_password
++  # has_secure_password
+ end
+diff --git a/app/views/layouts/application.html.erb b/app/views/layouts/application.html.erb
+index 309c3fc..5a14471 100644
+--- a/app/views/layouts/application.html.erb
++++ b/app/views/layouts/application.html.erb
+@@ -11,6 +11,7 @@
+   <div class="container">
+    <%= yield %>
+    <%= render 'layouts/footer' %>
++    <%= debug(params) if Rails.env.development? %>
+   </div>
+ </body>
+ </html>
+diff --git a/app/views/users/show.html.erb b/app/views/users/show.html.erb
+index 1319a37..1a9a7ce 100644
+--- a/app/views/users/show.html.erb
++++ b/app/views/users/show.html.erb
+@@ -1,19 +1,5 @@
+-<p id="notice"><%= notice %></p>
+-
+-<p>
+-  <strong>Name:</strong>
++<% provide(:title, @user.name) %>
++<h1>
++  <%= gravatar_for @user %>
+   <%= @user.name %>
+-</p>
+-
+-<p>
+-  <strong>Email:</strong>
+-  <%= @user.email %>
+-</p>
+-
+-<p>
+-  <strong>Password digest:</strong>
+-  <%= @user.password_digest %>
+-</p>
+-
+-<%= link_to 'Edit', edit_user_path(@user) %> |
+-<%= link_to 'Back', users_path %>
++</h1>
+\ No newline at end of file
