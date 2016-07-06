@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   resources :microposts
   resources :users
+  resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :account_activations, only: [:edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
