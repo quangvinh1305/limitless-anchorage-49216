@@ -6,9 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #   
+User.destroy_all
 
 User.create!(name:  "Example User",
-             email: "example@railstutorial.org",
+             email: "quangvinh.1305@gmail.com",
              password:              "foobar",
              password_confirmation: "foobar",
              admin:     true,
@@ -26,3 +27,9 @@ User.create!(name:  "Example User",
               activated: true,
               activated_at: Time.zone.now)
 end
+
+
+
+n = 0;
+User.all.each {|u| u.microposts.create!(content: 'Micropost #{n++} ') }
+    
