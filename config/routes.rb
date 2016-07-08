@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :orders
+  resources :line_items
+  resources :carts
+  resources :products
+  resources :products
   get 'password_resets/new'
 
   get 'password_resets/edit'
@@ -72,6 +77,5 @@ Rails.application.routes.draw do
   #   namespace :admin do
   #     # Directs /admin/products/* to Admin::ProductsController
   #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  #     #   end
 end
