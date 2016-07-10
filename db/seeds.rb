@@ -7,7 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #   
 User.destroy_all
-
+Category.destroy_all
+Product.destroy_all
 User.create!(name:  "Example User",
              email: "quangvinh.1305@gmail.com",
              password:              "foobar",
@@ -32,4 +33,15 @@ end
 
 n = 0;
 User.all.each {|u| u.microposts.create!(content: 'Micropost #{n++} ') }
+
+
+Category::CATEGORIES.each do |category, br_node|
+  Category.create(title: category)
+  puts "#{category} is created"
+end
+
+
+amazon = AmazonProduct.new
+amazon.create_amz_products
+
     
