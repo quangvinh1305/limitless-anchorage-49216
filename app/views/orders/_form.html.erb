@@ -11,10 +11,7 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
+
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -29,9 +26,11 @@
   </div>
   <div class="field">
     <%= f.label :pay_type %><br>
-    <%= f.text_field :pay_type %>
+    <%= f.select :pay_type, Order::PAYMENT_TYPES, prompt: "Select a payment method" %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>
+
