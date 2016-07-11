@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.paginate(page: params[:page])
-    # debugger
   end
 
 
@@ -15,7 +14,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
-    # debugger
   end
 
   # GET /users/new
