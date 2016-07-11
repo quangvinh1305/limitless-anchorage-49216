@@ -25,14 +25,19 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-
-    respond_to do |format|
+    @cart = current_cart;
+    @order.add_line_items_from_cart(@cart)
+   
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
+        Cart.destroy(session[:cart_id])
+        session[:cart_id] = nil
+        redirect_to root_path
+        flash[:success] = 'Order was successfully created.' 
+
       else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        @cart = current_cart
+        flash.now[:danger] = "Please try"
+        render :new 
       end
     end
   end
@@ -69,6 +74,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:user_id, :name, :address, :email, :pay_type)
+      params.require(:order).permit(:name, :address, :email, :pay_type)
     end
 end
