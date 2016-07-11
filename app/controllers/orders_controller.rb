@@ -14,6 +14,11 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+    @cart = current_cart
+    if @cart.line_items.empty?
+      redirect_to root_url
+      flash[:danger] = "your cart is empty"
+    end
     @order = Order.new
   end
 
@@ -31,15 +36,16 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        redirect_to root_path
+        OrderNotifier.received(@order).deliver
         flash[:success] = 'Order was successfully created.' 
+        redirect_to root_path
 
       else
         @cart = current_cart
         flash.now[:danger] = "Please try"
         render :new 
       end
-    end
+    
   end
 
   # PATCH/PUT /orders/1
