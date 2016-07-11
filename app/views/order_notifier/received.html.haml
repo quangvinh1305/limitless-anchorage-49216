@@ -1,1 +1,7 @@
-", find me in app/views/order_notifier/received.html.haml"
+%h1 
+  =  "Hi  " + @order.name
+%p Thank you for your recent order from The Book Shop.
+%p You ordered the following items:	
+
+%p
+  = render @order.line_items
