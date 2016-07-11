@@ -36,7 +36,7 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        OrderNotifier.received(@order).deliver
+        send_order_email(@order)
         flash[:success] = 'Order was successfully created.' 
         redirect_to root_path
 
