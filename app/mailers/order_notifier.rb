@@ -1,14 +1,14 @@
 class OrderNotifier < ApplicationMailer
-  include Sidekiq::Worker
+
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
   #   en.order_notifier.received.subject
   #
-  def received order
-    @order = order
+  def received email, order_id
+    
 
-    mail to: order.email, subject: "The book store order"
+    mail to: email, subject: "The book store order"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
