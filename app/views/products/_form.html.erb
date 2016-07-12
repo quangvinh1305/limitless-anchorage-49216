@@ -31,6 +31,11 @@
     <%= f.label :pin %><br>
     <%= f.text_field :pin %>
   </div>
+  <div class="field">
+    <%= f.label :category_id %><br>
+
+    <%= f.select :category_id, Category.get_categories, prompt: "Select a category" %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

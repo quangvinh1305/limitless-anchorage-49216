@@ -1,0 +1,39 @@
+<div class="col-md-3">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+             <%= link_to "#{truncate(strip_tags(product.title), length: 30, separator: ' ')}",product_path(product)%>
+    </div>
+    <div class="panel-body">
+      <div class="text-center">
+        <%= link_to product_path(product) do %>
+
+          <%= image_tag(product.image_url)%>
+        <%end%>
+      </div>
+      <div class="text-center">
+        <p>
+          <strong><%= product.category.title%></strong>
+        </p>
+        <p>
+          Price: $<%= number_with_precision(product.price, precision: 2) %>
+        </p>
+      </div>
+      <div class="text-center">
+        <% if product.stock <= 0 %>
+          Out Of Stock
+        <% else %>
+          <%= button_to "Add to cart", line_items_path(:product_id => product), class: "btn btn-success"%>
+        <% end %>
+      </div>
+      <div class="text-center">
+      <% if current_user?(product.user) %>
+        <%= link_to "delete", product, method: :delete,
+                                         data: { confirm: "Are you sure to delete it?" } %>
+      <% end %>
+  
+      </div>
+    </div>
+
+  </div>
+</div>
+

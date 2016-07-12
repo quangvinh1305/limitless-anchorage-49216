@@ -25,7 +25,7 @@ class AmazonProduct
         
         responses = responses['ItemSearchResponse']['Items']['Item'];
 
-        responses.each do |item|
+        responses[0..19].each do |item|
             return "Complete" if item == nil
           Product.find_or_create_by(pin: item["ASIN"]) do |product|
             product.title = item["ItemAttributes"]["Title"]
@@ -49,7 +49,7 @@ class AmazonProduct
             else
               product.image_url = item["LargeImage"]["URL"]
             end
-            product.stock = rand(2..20)
+            product.stock = rand(2..10)
             puts "#{product.title} is fetched and updated successfully" if product.save
           end
 

@@ -13,7 +13,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @products = @user.products.paginate(page: params[:page])
+    # @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   # GET /users/new

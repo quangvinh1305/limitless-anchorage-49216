@@ -2,6 +2,7 @@
 
 <h1>Recommanded Items</h1>
 
+<% if !@products.nil? %>
 <table>
   <thead>
     <tr>
@@ -15,20 +16,36 @@
   </thead>
 
   <tbody>
-    <% @products.each do |product| %>
+
+    <% if @products.is_a? Array %>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.title %></td>
+          <td><%= product.description %></td>
+          <td><%= image_tag(product.image_url) %></td>
+          <td><%= product.price %></td>
+          <td><%= product.pin %></td>
+          <td><%= link_to 'Show', product %></td>
+          <td><%= link_to 'Edit', edit_product_path(product) %></td>
+          <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+
+      <% end %>
+    <%else%>
       <tr>
-        <td><%= product.title %></td>
-        <td><%= product.description %></td>
-        <td><%= product.image_url %></td>
-        <td><%= product.price %></td>
-        <td><%= product.pin %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <td><%= @products.title %></td>
+        <td><%= @products.description %></td>
+        <td><%= @products.image_url %></td>
+        <td><%= @products.price %></td>
+        <td><%= @products.pin %></td>
+        <td><%= link_to 'Show', @products %></td>
+        <td><%= link_to 'Edit', edit_product_path(@products) %></td>
+        <td><%= link_to 'Destroy', @products, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>        
     <% end %>
   </tbody>
 </table>
+<% end %>
 
 <br>
 
