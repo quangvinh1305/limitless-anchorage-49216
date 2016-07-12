@@ -11,6 +11,8 @@ Category.destroy_all
 Product.destroy_all
 User.create!(name:  "Example User",
              email: "quangvinh.1305@gmail.com",
+             adress: "15/14 Vo Duy Ninh Street",
+             phone_number: "0987556556",
              password:              "foobar",
              password_confirmation: "foobar",
              admin:     true,
@@ -23,6 +25,8 @@ User.create!(name:  "Example User",
   password = "password"
   User.create!(name:  name,
               email: email,
+              adress: "15/14 Vo Duy Ninh Street",
+              phone_number: "0987556556",
               password:              password,
               password_confirmation: password,
               activated: true,

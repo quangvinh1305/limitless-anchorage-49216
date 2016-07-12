@@ -19,7 +19,16 @@ class OrdersController < ApplicationController
       redirect_to root_url
       flash[:danger] = "your cart is empty"
     end
+
     @order = Order.new
+    if logged_in?
+      user = current_user
+      @order[:name] = user.name
+      @order[:email] = user.email
+      @order[:address] = user.adress
+      @order[:phone_number] = user.phone_number
+    end
+    
   end
 
   # GET /orders/1/edit
@@ -32,19 +41,21 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @cart = current_cart;
     @order.add_line_items_from_cart(@cart)
-   
-      if @order.save
-        Cart.destroy(session[:cart_id])
-        session[:cart_id] = nil
-        send_order_email(@order)
-        flash[:success] = 'Order was successfully created.' 
-        redirect_to root_path
+    if logged_in?
+      @order.user_id = current_user.id
+    end   
+    if @order.save
+      Cart.destroy(session[:cart_id])
+      session[:cart_id] = nil
+      send_order_email(@order)
+      flash[:success] = 'Order was successfully created.' 
+      redirect_to root_path
 
-      else
-        @cart = current_cart
-        flash.now[:danger] = "Please try"
-        render :new 
-      end
+    else
+      @cart = current_cart
+      flash.now[:danger] = "Please try"
+      render :new 
+    end
     
   end
 
@@ -80,6 +91,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :address, :email, :pay_type)
+      params.require(:order).permit(:name, :address, :email, :pay_type,  :phone_number)
     end
 end

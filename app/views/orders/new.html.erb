@@ -1,5 +1,8 @@
-<h1>New Order</h1>
-
+<% if logged_in?%>
+<h1>Please Choose Payment Method</h1>
+<% else %>
+<h1>Please Filling your information</h1>
+<% end %>
 <%= render 'form' %>
 
 <%= link_to 'Back', orders_path %>

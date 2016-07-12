@@ -1,6 +1,4 @@
-require 'vacuum'
 require 'ostruct'
-require 'pp'
 class AmazonProduct
 
   def initialize
@@ -73,3 +71,5 @@ class AmazonProduct
   end
 
 end
+
+
