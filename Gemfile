@@ -17,7 +17,7 @@ gem 'sqlite3', group: :development
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'haml-rails'
-
+gem 'sinatra'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 gem 'vacuum', git: 'https://github.com/hakanensari/vacuum'

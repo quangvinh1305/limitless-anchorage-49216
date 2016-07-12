@@ -368,6 +368,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sidekiq
+  sinatra
   spring
   sqlite3
   turbolinks

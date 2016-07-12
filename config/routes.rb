@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  require 'sidekiq/web'
   resources :categories
   resources :orders
   resources :line_items
@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+
+  mount Sidekiq::Web => '/sidekiq'
   resources :microposts
   resources :users
   resources :password_resets,     only: [:new, :create, :edit, :update]
