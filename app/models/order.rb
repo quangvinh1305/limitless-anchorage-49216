@@ -12,4 +12,11 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def remove_product_in_stock
+    line_items.each do |item|
+      product = item.product
+      product.stock -= item.quantity
+      product.save
+    end
+  end
 end

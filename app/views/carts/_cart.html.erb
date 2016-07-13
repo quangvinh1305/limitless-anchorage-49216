@@ -1,16 +1,83 @@
-<table>
-  <%= render(cart.line_items) %>
+<div class="row" class="cart">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Total</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cart.line_items.each do |item| %>
+                  <tr>
+                      <td class="col-sm-8 col-md-6">
+                      <div class="media">
+                        <%= image_tag item.product.image_url.url :xs_icon, class: "thumbnail pull-left" %>
+                          <div class="media-body">
+                              <h4 class="media-heading"><a href="#"><%= item.product.title %></a></h4>
+                              <span>Status: </span><span class="text-success">
+                              <strong>
+                                      <% if item.product.stock < 0 %> 
+                                        Out of Stock 
+                                      <%else %>
+                                        In Stock: <span class="stock"><%= item.product.stock %> </span>
+                                      <%end%>
 
-  <tr class="total_line">
-    <td colspan="2">Total</td>
-    <td class="total_cell"><%= number_to_currency(cart.total_price) %></td>
-    <td><%= button_to 'checkout', new_order_path, method: :get, class: "btn btn-success checkout_cart" %>
-    </td>
-    <td>
-      <%= button_to 'empty', cart, method: :delete,
-    data: { confirm: 'Are you sure?' } , class: "btn btn-danger empty_cart"%>
-    </td>
-  </tr>
+                                </strong></span>
+                          </div>
+                      </div></td>
+                      <%= form_tag line_item_path(item), method: :patch, remote: true do %>
+                        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                        <%= number_field_tag :quantity, item.quantity, class: "form-control", min: 1, max: item.product.stock, onchange: "this.form.submit()"%>
+                        </td>
+                      <%end%>
+                      <td class="col-sm-1 col-md-1 text-center"><strong>$<%= item.product.price %></strong></td>
+                      <td class="col-sm-1 col-md-1 text-center"><strong>$<%= item.quantity * item.product.price%></strong></td>
+                      <td class="col-sm-1 col-md-1">
+                         <%= button_to line_item_path(item), method: :delete,
+                          data: { confirm: 'Are you sure?' } , class: "btn btn-danger" do%>
+                          Remove <span class="glyphicon glyphicon-remove"></span>
+                        <% end %>  
+                      </td>
+                  </tr>
+                <% end %>
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>   </td>
+                    <td><h3>Total</h3></td>
+                    <td class="text-right"><h3><strong><%= number_to_currency(cart.total_price) %></strong></h3></td>
+                </tr>
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>
+                      <%= button_to root_path,method: :get, class: "btn btn-default" do%>
+                        <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                      <%end %>
+                    </td>
+                    <td>  
+                        <%= button_to cart, method: :delete,
+                          data: { confirm: 'Are you sure?' } , class: "btn btn-danger" do%>
+                          Clear Cart <span class="glyphicon glyphicon-play"></span>
+                        <% end %>   
+                    </td>
 
-</table>
+                    <td>
+
+
+                      <%= button_to new_order_path, method: :get, class: "btn btn-success checkout_cart" do%>
+                        Checkout <span class="glyphicon glyphicon-play"></span>
+                      <%end %>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 

@@ -27,39 +27,54 @@ class LineItemsController < ApplicationController
     @cart = current_cart
     product = Product.find(params[:product_id])
     @line_item = @cart.add_product(product.id)
-    respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @cart, notice: 'Line item was successfully created.' }
-        format.json { render :show, status: :created, location: @line_item }
+        redirect_to @cart
+        flash[:success] = 'Line item was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        render "new" 
       end
-    end
+    
   end
 
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
-    respond_to do |format|
-      if @line_item.update(line_item_params)
-        format.html { redirect_to @line_item, notice: 'Line item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @line_item }
-      else
-        format.html { render :edit }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
-      end
+    @line_item = LineItem.find(params[:id]);
+    quant = params[:quantity].to_i
+    warning_message = nil
+    
+    if quant > @line_item.product.stock
+      quant = @line_item.product.stock
+      warning_message = "We just have #{@line_item.product.stock}: #{@line_item.product.title}"
     end
+    if @line_item.update_attributes(quantity: quant)
+      flash[:success] = warning_message.nil? ? "#{@line_item.product.title} is successfully updated" : warning_message; 
+      redirect_to current_cart
+    else
+      flash[:warning] = '#{@line_item.product.title} is not updated.'
+      redirect_to current_cart
+    end
+
   end
 
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
-    @line_item.destroy
-    respond_to do |format|
-      format.html { redirect_to line_items_url, notice: 'Line item was successfully destroyed.' }
-      format.json { head :no_content }
+    cart = current_cart
+    if cart.line_items.empty?
+      redirect_to root_path
+      flash[:warning] = "Your cart is empty now. So you can't clear it"
+      return
     end
+    @line_item.destroy
+    if cart.line_items.empty?
+      redirect_to root_path
+      flash[:warning] = "Cart is successfully updated. Countinue shopping now.";
+    else
+      flash[:success] = "Cart is successfully updated."
+      redirect_to cart
+    end  
+
   end
 
   private

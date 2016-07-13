@@ -15,19 +15,27 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @cart = current_cart
-    if @cart.line_items.empty?
+    line_items = @cart.line_items
+    if line_items.empty?
+      flash[:alert] = "your cart is empty"
       redirect_to root_url
-      flash[:danger] = "your cart is empty"
+    elsif line_items.any? { |item| item.product.stock <= 0 }
+      flash[:alert] = "Out of stock"
+      redirect_to root_path
+    elsif line_items.any? { |item| item.quantity > item.product.stock }
+      flash[:alert] = "Item execeeds stock"
+      redirect_to cart_url
+    else
+      @order = Order.new
+      if logged_in?
+        user = current_user
+        @order[:name] = user.name
+        @order[:email] = user.email
+        @order[:address] = user.adress
+        @order[:phone_number] = user.phone_number
+      end    
     end
 
-    @order = Order.new
-    if logged_in?
-      user = current_user
-      @order[:name] = user.name
-      @order[:email] = user.email
-      @order[:address] = user.adress
-      @order[:phone_number] = user.phone_number
-    end
     
   end
 
@@ -41,10 +49,21 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @cart = current_cart;
     @order.add_line_items_from_cart(@cart)
+    line_items = @order.line_items;
+
+    if line_items.any? { |item| item.product.stock <= 0 }
+      redirect_to root_url, 
+      flash[:alert] = "Item is out of stock"
+      line_items.each { |item| item.destroy if item.product.stock <= 0 }
+      return
+    end
+
     if logged_in?
       @order.user_id = current_user.id
-    end   
+    end
+
     if @order.save
+      @order.remove_product_in_stock
       Cart.destroy(session[:cart_id])
       session[:cart_id] = nil
       send_order_email(@order)

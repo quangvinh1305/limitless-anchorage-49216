@@ -1,3 +1,9 @@
-<%= sprintf("%2d x %s", line_item.quantity,
-truncate(line_item.product.title,
-length: 50)) %>
+<tr>
+<td>
+<%= line_item.quantity %>
+</td>
+<td>
+<%= truncate(line_item.product.title,
+length: 20) %>
+</td>
+</tr>

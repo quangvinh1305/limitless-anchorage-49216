@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<% if !@product.nil? %>
 <p>
   <strong>Title:</strong>
   <%= @product.title %>
@@ -20,10 +20,6 @@
   <%= @product.price %>
 </p>
 
-<p>
-  <strong>Pin:</strong>
-  <%= @product.pin %>
-</p>
-
+<% end %>
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

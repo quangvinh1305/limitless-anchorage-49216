@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   def index
     if logged_in?
       user = current_user
-      @products = Product.find_by user_id: user.id 
+      @products = Product.where user_id: user.id
     end
   end
 
