@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20160712085646) do
     t.boolean  "activated",         default: false
     t.datetime "activated_at"
     t.datetime "reset_sent_at"
-    t.string   "adress"
+    t.string   "address"
     t.string   "phone_number"
   end
 

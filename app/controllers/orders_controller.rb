@@ -1,12 +1,16 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
+  before_action :admin, only: :index_admin
   # GET /orders
   # GET /orders.json
   def index
+    if logged_in?
+      @orders = current_user.orders
+    end
+  end
+  def index_admin
     @orders = Order.all
   end
-
   # GET /orders/1
   # GET /orders/1.json
   def show
@@ -31,7 +35,7 @@ class OrdersController < ApplicationController
         user = current_user
         @order[:name] = user.name
         @order[:email] = user.email
-        @order[:address] = user.adress
+        @order[:address] = user.address
         @order[:phone_number] = user.phone_number
       end    
     end
@@ -42,7 +46,14 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
   end
+  def admin
 
+    if !current_user.admin?
+      flash[:danger] = "You are not admin";
+      redirect_to root_path
+      return
+    end
+  end
   # POST /orders
   # POST /orders.json
   def create
