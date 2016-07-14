@@ -1,12 +1,20 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :admin_authentication, only: [:admin, :edit]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    if logged_in?
+      @orders = current_user.orders
+    else
+      set_order
+    end
   end
 
+  def admin
+    @orders = Order.all
+  end
   # GET /orders/1
   # GET /orders/1.json
   def show
@@ -31,7 +39,7 @@ class OrdersController < ApplicationController
         user = current_user
         @order[:name] = user.name
         @order[:email] = user.email
-        @order[:address] = user.adress
+        @order[:address] = user.address
         @order[:phone_number] = user.phone_number
       end    
     end
@@ -81,13 +89,20 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
+
+    status = params[:status].to_i
+    if status < 0 && status >5
+      flash[:warning] = "Invalid status"
+      redirect_to admin_path
+      return
+    end
     respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
+      if @order.update_attributes(status: status)
+        redirect_to admin_path 
+        flash[:success] = 'Order was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        redirect_to admin_path 
+        flash[:warning] = 'Order was successfully updated.'
       end
     end
   end
@@ -103,6 +118,14 @@ class OrdersController < ApplicationController
   end
 
   private
+    def admin_authentication
+      if logged_in?
+        if !current_user.admin?
+          flash[:danger] = "You don't have permission for this page";
+          redirect_to login_path
+        end
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
