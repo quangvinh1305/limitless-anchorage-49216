@@ -47,6 +47,10 @@ class LineItemsController < ApplicationController
       quant = @line_item.product.stock
       warning_message = "We just have #{@line_item.product.stock}: #{@line_item.product.title}"
     end
+    if quant <= 0
+      flash[:warning] = '#{@line_item.product.title} is invalid quantity.'
+      redirect_to current_cart      
+    end
     if @line_item.update_attributes(quantity: quant)
       flash[:success] = warning_message.nil? ? "#{@line_item.product.title} is successfully updated" : warning_message; 
       redirect_to current_cart

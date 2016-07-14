@@ -13,13 +13,22 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Books<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
-        <li ><a href="#">ARTS & PHOTOGRAPHY<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
-        <li ><a href="#">HISTORY<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
-        <li><a href="#">LITERATURE & FICTION<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
-        <li ><a href="#">SCIENCE & MATH<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
-        <li ><a href="#">COMPUTERS & TECHNOLOGY<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
+        <li class="active">
+          <%= link_to root_path do%>All<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></li>
+          <% end %>
+        <% Category.all.each do |category| %>
+          <li ><%= link_to category_path(category) do%>
+            <%= category.title %><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
 </nav>
+
+
+<!-- <a href="#">ARTS & PHOTOGRAPHY<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
+
+Category.all.each do |category|
+      = link_to category.title, categories_path(category), class: "list-group-item #{'active' if current_page?(categories_path(category)) }" -->

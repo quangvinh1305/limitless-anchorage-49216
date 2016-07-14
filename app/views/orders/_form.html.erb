@@ -14,15 +14,15 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :address %><br>
-    <%= f.text_area :address %>
+    <%= f.text_area :address, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :email %><br>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :phone_number %><br>
@@ -30,10 +30,10 @@
   </div>
   <div class="field">
     <%= f.label :pay_type %><br>
-    <%= f.select :pay_type, Order::PAYMENT_TYPES, prompt: "Select a payment method" %>
+    <%= f.select :pay_type, Order::PAYMENT_TYPES, prompt: "Select a payment method", %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 
 <% end %>

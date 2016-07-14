@@ -72,7 +72,6 @@ footer {
      padding-top: 10px;
      border-top: 1px solid #eaeaea;
      color: #777;
-     height: 5em;
 
 }
    footer a {
@@ -89,9 +88,9 @@ footer {
      float: right;
      list-style: none;
 }
-   footer ul li {
-     float: left;
-     margin-left: 15px;
+footer ul li {
+  float: left;
+  margin-left: 15px;
 }
 
 @mixin box_sizing {
@@ -269,5 +268,3 @@ span.picture {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-
-

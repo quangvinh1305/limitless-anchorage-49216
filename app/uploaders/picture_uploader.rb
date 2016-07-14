@@ -8,7 +8,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   process resize_to_limit: [400, 400]
 
   version :medium_icon do
-    process :resize_to_fit => [400, 400]
+    process :resize_to_fit => [200, 200]
   end
 
   version :small_icon do

@@ -1,60 +1,64 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Orders</h1>
-<div class="row">
-    
-    <div class="col-md-12">
-        <div class="well">
-    
-            <div class="form-horizontal">
-<!--               <%= form_tag orders_path, method: :get, :class => "form-inline" do %>
-                  <%= text_field_tag :id, params[:id] %>
-                  <%= submit_tag "Search", name: nil, class: "btn btn-default" %>   
-              <% end %> -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Order id</label>
-                        <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputOrderTrackingID" value="" placeholder="# put your order id here">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="button" class="btn btn-success">Get status</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="row">
+      
+      <div class="col-md-12">
+          <div class="well">
+      
+              <div class="form-horizontal">
+  <!--               <%= form_tag orders_path, method: :get, :class => "form-inline" do %>
+                    <%= text_field_tag :id, params[:id] %>
+                    <%= submit_tag "Search", name: nil, class: "btn btn-default" %>   
+                <% end %> -->
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Order id</label>
+                          <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputOrderTrackingID" value="" placeholder="# put your order id here">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10">
+                          <button type="button" class="btn btn-success">Get status</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <% if @orders.present? %>
+            <h4>Check your order status:</h4>
+            <% @orders.each do |order| %>
+              <ul class="list-group">
+                  <li class="list-group-item">
+                      <span class="prefix">Order Id</span>
+                      <span class="label label-success"> <%= order.id %></span>
+                  </li>
+                  <li class="list-group-item">
+                      <span class="prefix">Date created:</span>
+                      <span class="label label-success"><%= order.created_at %></span>
+                  </li>
+                  <li class="list-group-item">
+                      <span class="prefix">Last update:</span>
+                      <span class="label label-success"><%= order.updated_at %></span>
+                  </li>
+                  <li class="list-group-item">
+                      <span class="prefix">status:</span>
+                      <span class="label label-success"><%= order.status %></span>
+                  </li>
+              </ul>
+            <% end %>
 
-    <% if @orders.present? %>
-        <h4>Check your order status:</h4>
-        <% @orders.each do |order| %>
-          <ul class="list-group">
-              <li class="list-group-item">
-                  <span class="prefix">Order Id</span>
-                  <span class="label label-success"> <%= order.id %></span>
-              </li>
-              <li class="list-group-item">
-                  <span class="prefix">Date created:</span>
-                  <span class="label label-success"><%= order.created_at %></span>
-              </li>
-              <li class="list-group-item">
-                  <span class="prefix">Last update:</span>
-                  <span class="label label-success"><%= order.updated_at %></span>
-              </li>
-              <li class="list-group-item">
-                  <span class="prefix">status:</span>
-                  <span class="label label-success"><%= order.status %></span>
-              </li>
-          </ul>
+        <% else %>
+          <h4>You didn't order.</h4>
+          <%= button_to root_path,method: :get, class: "btn btn-default" do%>
+          <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping   
+          <%end %>   
         <% end %>
-    <% else %>
-      <h4>You didn't order.</h4>
-      <%= button_to root_path,method: :get, class: "btn btn-default" do%>
-      <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping   
-      <%end %>   
-    <% end %>
-
+      </div>
+    <div>
 </div>
 
 

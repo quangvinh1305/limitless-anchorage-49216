@@ -1,33 +1,37 @@
-<%= form_for(@product) do |f| %>
-  <%= render 'shared/error_messages', object: @product %>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title , class: 'form-control'%>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description , class: 'form-control'%>
-  </div>
-  <div class="field">
-    <%= f.label :image_url %><br>
-    <span class="picture">
-      <%= f.file_field :image_url %>
-    </span>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price , class: 'form-control'%>
-  </div>
-  <div class="field">
-    <%= f.label :stock %><br>
-    <%= f.text_field :stock , class: 'form-control'%>
-  </div>
-  <div class="field">
-    <%= f.label :category_id %><br>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <%= form_for(@product) do |f| %>
+      <%= render 'shared/error_messages', object: @product %>
+      <div class="field">
+        <%= f.label :title %><br>
+        <%= f.text_field :title , class: 'form-control'%>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_area :description , class: 'form-control'%>
+      </div>
+      <div class="field">
+        <%= f.label :image %><br>
+        <span class="picture">
+          <%= f.file_field :image %>
+        </span>
+      </div>
+      <div class="field">
+        <%= f.label :price %><br>
+        <%= f.text_field :price , class: 'form-control'%>
+      </div>
+      <div class="field">
+        <%= f.label :stock %><br>
+        <%= f.text_field :stock , class: 'form-control'%>
+      </div>
+      <div class="field">
+        <%= f.label :category_id %><br>
 
-    <%= f.select :category_id, Category.get_categories, prompt: "Select a category" , class: 'form-control'%>
+        <%= f.select :category_id, Category.get_categories, prompt: "Select a category" , class: 'form-control'%>
+      </div>
+      <div class="actions">
+        <%= f.submit "Create New Product" , class: "btn btn-primary"%>
+      </div>
+    <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit "Create New Product" , class: "btn btn-primary"%>
-  </div>
-<% end %>
+</div>
