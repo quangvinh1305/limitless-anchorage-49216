@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :admin_authentication, only: [:admin, :edit]
+  before_action :admin_authentication, only: [:admin, :destroy, :edit]
 
   # GET /orders
   # GET /orders.json
@@ -50,14 +50,6 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit
-  end
-  def admin
-
-    if !current_user.admin?
-      flash[:danger] = "You are not admin";
-      redirect_to root_path
-      return
-    end
   end
   # POST /orders
   # POST /orders.json
