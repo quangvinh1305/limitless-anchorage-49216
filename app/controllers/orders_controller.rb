@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
   def admin
     @orders = Order.all
   end
+
   # GET /orders/1
   # GET /orders/1.json
   def show
@@ -50,7 +51,14 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
   end
+  def admin
 
+    if !current_user.admin?
+      flash[:danger] = "You are not admin";
+      redirect_to root_path
+      return
+    end
+  end
   # POST /orders
   # POST /orders.json
   def create
