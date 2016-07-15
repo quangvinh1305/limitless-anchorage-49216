@@ -13,11 +13,13 @@ gem 'bootstrap-will_paginate', '0.0.10'
 gem 'bootstrap-sass',       '3.2.0.0'
 gem 'font-awesome-sass'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', group: :development
+gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'haml-rails'
 gem 'sinatra'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 gem 'vacuum', git: 'https://github.com/hakanensari/vacuum'
@@ -61,4 +63,5 @@ end
 group :production do
   gem 'pg'
   gem 'rails_12factor'
+
 end

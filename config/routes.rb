@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get '/admin', to: 'orders#admin' 
-
+  get '/search', to: 'products#search'
   mount Sidekiq::Web => '/sidekiq'
   resources :microposts
   resources :users

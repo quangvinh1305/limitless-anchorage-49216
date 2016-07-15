@@ -55,6 +55,16 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    # debugger
+    @search = Product.search do
+      fulltext params[:search]
+    #   # paginate page: params[:page], per_page: 15
+    end
+    @products = @search.results
+    @total_results = @search.total
+  end
+
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy

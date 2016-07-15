@@ -1,0 +1,29 @@
+.row
+  .col-md-9
+    .col-md-12
+      %h3 Search results
+      %span We found #{pluralize(@total_results, 'result')}
+    .text-right
+      = will_paginate @products
+    - @products.each do |product|
+      .row.search
+        .col-md-3.text-center
+          = link_to product_path(product) do
+            = image_tag product.image_url(:medium)
+        .col-md-9
+          %h4
+            = link_to product do
+              = product.title
+          -# %p
+          -#   = link_to categories_path(product.category) do
+          -#     %strong #{product.category.title}
+          %p
+            %strong $#{product.price}
+          %p ID: #{product.item_id}
+          %p Manufactured by #{product.manufacturer}
+          = button_to "Add to cart", buy_items_path(product, qty: 1), class: "btn btn-default"
+          %p= simple_format product.description.truncate_words(50)
+          .text-right
+            = link_to "Read More", product_path(product)
+    .text-right
+      = will_paginate @products
