@@ -441,12 +441,6 @@
      </arr>
   </requestHandler>
 
-
-  <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
-      <lst name="defaults">
-            <str name="config">db-data-config.xml</str>
-        </lst>
-  </requestHandler> 
   <!--
     The export request handler is used to export full sorted result sets.
     Do not change these defaults.
