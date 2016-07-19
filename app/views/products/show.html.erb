@@ -24,11 +24,15 @@
         <% if @product.stock > 0%>
           <%= button_to "Add to cart", line_items_path(:product_id => @product), class: "btn btn-success"%>
         <%else%>
-          <span class="monospaced">Out Of Stock</span>
+          <span class="monospaced"><h2>Out Of Stock<h2></span>
         <% end %>
       </div>
     </div><!-- end row -->
-
-
+    <div class="row">
+      <div class="col-md-2">
+        <%= link_to image_tag('social-facebook-box-blue-icon.png'), 'http://www.facebook.com/sharer.php?u=' + request.fullpath + '&p[images][0]=' + @product.image_url, :target => :blank %>
+        <%= link_to image_tag('1468932807_twitter2.png'), "https://twitter.com/intent/tweet?source=webclient&text=" + @product.title + "+" + request.fullpath, :target => :blank %>
+      </div>
+    </div>
   </div>
 <% end %>
