@@ -59,7 +59,7 @@ class ProductsController < ApplicationController
     # debugger
     @search = Product.search do
       fulltext params[:search]
-    #   # paginate page: params[:page], per_page: 15
+      paginate page: params[:page], per_page: 10
     end
     @products = @search.results
     @total_results = @search.total

@@ -89,22 +89,21 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
-
     status = params[:status].to_i
-    if status < 0 && status >5
+    if status < 0 || status >5
       flash[:warning] = "Invalid status"
       redirect_to admin_path
       return
     end
-    respond_to do |format|
-      if @order.update_attributes(status: status)
-        redirect_to admin_path 
-        flash[:success] = 'Order was successfully updated.'
-      else
-        redirect_to admin_path 
-        flash[:warning] = 'Order was successfully updated.'
-      end
+
+    if @order.update_attributes(status: status)
+      redirect_to admin_path 
+      flash[:success] = 'Order was successfully updated.'
+    else
+      redirect_to admin_path 
+      flash[:warning] = 'Update errors.'
     end
+
   end
 
   # DELETE /orders/1
