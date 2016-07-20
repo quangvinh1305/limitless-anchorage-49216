@@ -123,6 +123,14 @@
      default: a value that should be used if no value is specified
        when adding a document.
    -->
+
+    <field name="stock" type="tint" indexed="true" stored="true" />
+    <field name="description" type="text" indexed="true" stored="true" />
+    <field name="title" type="string" indexed="true" stored="true" />
+    <field name="price" type="tdouble" indexed="true" stored="true" />
+    <field name="category_id" type="tint" indexed="true" stored="true" />
+    <field name="image_url" type="text" indexed="true" stored="true" />
+    <field name="pin" type="string" indexed="true" stored="true" />
     <!-- *** This field is used by Sunspot! *** -->
     <field name="id" stored="true" type="string" multiValued="false" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->

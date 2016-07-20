@@ -8,9 +8,11 @@ class AmazonProduct
     aws_secret_access_key: "8rpb5q169RUtj7HU3njH3zxcKthZJmWbgtrzESXy",
     associate_tag: 'microv'
     )
+    @solr = RSolr.connect :url => 'http://127.0.0.1:8982/solr/development'
   end
 
   def create_amz_products 
+
     Category.all.each do |category|
       (1..10).each do |page|
         responses = @request.item_search(
@@ -48,10 +50,17 @@ class AmazonProduct
               product.remote_image_url = item["LargeImage"]["URL"]
             end
             product.stock = rand(2..10)
-            puts "#{product.title} is fetched and updated successfully" if product.save
+            if product.save
+              puts "#{product.title} is fetched and updated successfully"
+              solr_product = {:id => product.id, :title => product.title, :stock => product.stock, :price => product.price,
+                              :description => product.description, :pin => product.pin,
+                              :category_id => product.category_id, :image_url => product.image_url}  
+              @solr.add solr_product
+            end
           end
-
         end
+        @solr.update :data => '<commit/>'
+        @solr.update :data => '<optimize/>'
       end
     end
   end

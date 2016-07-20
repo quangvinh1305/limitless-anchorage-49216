@@ -9,6 +9,9 @@
 User.destroy_all
 Category.destroy_all
 Product.destroy_all
+Cart.destroy_all
+LineItem.destroy_all
+Order.destroy_all
 User.create!(name:  "Example User",
              email: "quangvinh.1305@gmail.com",
              address: "15/14 Vo Duy Ninh Street",
@@ -39,10 +42,7 @@ n = 0;
 User.all.each {|u| u.microposts.create!(content: 'Micropost #{n++} ') }
 
 
-Category::CATEGORIES.each do |category, br_node|
-  Category.create(title: category)
-  puts "#{category} is created"
-end
+
 
 
 # amazon = AmazonProduct.new
