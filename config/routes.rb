@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   resources :line_items
   resources :carts
   resources :products
-  resources :products
   get 'password_resets/new'
 
   get 'password_resets/edit'
@@ -24,7 +23,6 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   mount Sidekiq::Web => '/sidekiq'
-  resources :microposts
   resources :users
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :account_activations, only: [:edit]

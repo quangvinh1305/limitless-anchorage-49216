@@ -47,7 +47,8 @@ class OrdersController < ApplicationController
     if @order.save
       Cart.destroy(session[:cart_id])
       session[:cart_id] = nil
-      send_order_email(@order)
+      # h = JSON.generate({'email' => @order.email, 'order_id'=> @order.id})
+      OrderWorker.perform_async(@order.id, 5)
       flash[:success] = 'Order was successfully created.' 
       redirect_to root_path
 

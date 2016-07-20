@@ -1,7 +1,7 @@
 class OrderWorker
   include Sidekiq::Worker
-  def perform(h, count)
-    h = JSON.load(h)
-    OrderNotifier.received(h['email'], h['order_id']).deliver_now
+  def perform(id, count)
+    
+    OrderNotifier.received(id).deliver_now
   end
 end
