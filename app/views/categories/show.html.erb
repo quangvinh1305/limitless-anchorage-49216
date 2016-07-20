@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="text-center">
-        <h2><%= link_to "#{@category.title.upcase}", category_path(@category) %></h2>
+        <h2><%= @category.decorate.link %></h2>
           
       </div>
       <hr>
@@ -21,9 +21,7 @@
       <div class="text-center">
         <h1>Newest Item</h1>
         <hr>
-        <% @newest_products.each do |product| %>
-          <%= render product %>
-        <%end%>
+          <%= render @newest_products.includes(:category) %>
       </div>    
   </div>
 </div>

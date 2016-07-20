@@ -8,12 +8,11 @@ class Category < ActiveRecord::Base
                  "Computers & Technology" => "5" }
 
   def self.get_categories
-    list_categories = {}
-    Category.all.each do |category|
-      list_categories[category.title] = category.id 
-    end
-    list_categories   
+    Category.select(:id, :title).all
   end
 
   has_many :products;
+  def decorate
+    @decorate ||= CategoryDecorator.new self
+  end
 end

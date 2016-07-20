@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   def index
     if logged_in?
       user = current_user
-      @products = Product.find_by user_id: user.id 
+      @products = Product.where user_id: user.id 
     end
   end
 
@@ -27,9 +27,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
-    @product.user_id = current_user.id
-
+    @product = current_user.products.build(product_params)
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
