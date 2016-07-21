@@ -5,8 +5,7 @@
   <% @categories.each do |category| %>
     <div class="col-md-12">
       <div class="text-center">
-        <h2><%= link_to "#{category.title.upcase}", category_path(category) %></h2>
-          
+        <h2><%= link_to "#{category.title.upcase}", category_path(category) %></h2>     
       </div>
       <hr>
         <%= render category.included_products %>

@@ -27,8 +27,7 @@ class OrdersController < ApplicationController
       @order[:email] = user.email
       @order[:address] = user.adress
       @order[:phone_number] = user.phone_number
-    end
-    
+    end  
   end
 
   # GET /orders/1/edit
@@ -50,13 +49,11 @@ class OrdersController < ApplicationController
       OrderWorker.perform_async(@order.id)
       flash[:success] = 'Order was successfully created.' 
       redirect_to root_path
-
     else
       @cart = current_cart
       flash.now[:danger] = "Please try"
       render :new 
-    end
-    
+    end 
   end
 
   # PATCH/PUT /orders/1
