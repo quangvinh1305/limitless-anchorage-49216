@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
+    add_breadcrumb "Home", root_path
     @categories = Category.all
     if logged_in?
 
@@ -9,6 +10,8 @@ class StaticPagesController < ApplicationController
   end
 
   def help
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Help"
   end
 
   def about

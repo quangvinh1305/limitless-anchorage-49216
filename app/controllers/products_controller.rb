@@ -5,6 +5,8 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     if logged_in?
+      add_breadcrumb "home", root_path
+      add_breadcrumb "Products"
       @products = Product.where user_id: current_user.id
     end
   end
@@ -54,6 +56,8 @@ class ProductsController < ApplicationController
   end
 
   def search
+    add_breadcrumb "home", root_path
+    add_breadcrumb "search"
     @solr_search = SolrProduct.search_products params[:search], params[:page]
     product_ids = @solr_search['response']['docs'].any? ? @solr_search['response']['docs'].map{ |x| x["id"]} : []
     @total_results = @solr_search['response']['numFound'].to_i

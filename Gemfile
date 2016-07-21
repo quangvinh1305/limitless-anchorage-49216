@@ -36,6 +36,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'omniauth'
 gem 'rsolr'
+gem 'breadcrumble'
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'

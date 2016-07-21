@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
   def new
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Login"
   end
   def create
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Login"
     user = User.find_by(email: params[:session][:email].downcase)
 
     if user && user.authenticate(params[:session][:password])

@@ -12,9 +12,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Profile"
     @user = User.find(params[:id])
     @products = @user.products.paginate(page: params[:page])
-    # @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   # GET /users/new
@@ -25,6 +26,8 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Edit Profile"
   end
 
   # POST /users

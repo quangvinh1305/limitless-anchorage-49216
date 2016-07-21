@@ -10,6 +10,8 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "cart"
   end
 
   # GET /carts/new

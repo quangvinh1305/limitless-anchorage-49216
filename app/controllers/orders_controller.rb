@@ -13,6 +13,8 @@ class OrdersController < ApplicationController
   end
 
   def admin
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "admin"
     @orders = Order.all
   end
 
@@ -23,6 +25,8 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Order"
     @cart = current_cart
     line_items = @cart.line_items
     if line_items.empty?
