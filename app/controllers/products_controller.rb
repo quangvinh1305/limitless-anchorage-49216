@@ -54,15 +54,9 @@ class ProductsController < ApplicationController
   end
 
   def search
-    # debugger
-    # @search = Product.search do
-    #   fulltext params[:search]
-    #   paginate page: params[:page], per_page: 10
-    # end
-    search = SolrProduct.search_products params[:search], params[:page]
-    product_ids = search['ids']
-    debugger
-    @total_results = search['total']
+    @solr_search = SolrProduct.search_products params[:search], params[:page]
+    product_ids = @solr_search['response']['docs'].any? ? @solr_search['response']['docs'].map{ |x| x["id"]} : []
+    @total_results = @solr_search['response']['numFound'].to_i
     @products = product_ids.any? ? Product.where(id: product_ids) : []
   end
 
