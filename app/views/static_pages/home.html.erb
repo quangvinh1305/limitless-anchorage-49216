@@ -1,18 +1,22 @@
 <% provide(:title, "Home") %>
 
 <div class="center jumbotron">
-<div class="row">
+
   <% @categories.each do |category| %>
+    <div class="row">
     <div class="col-md-12">
       <div class="text-center">
         <h2><%= link_to "#{category.title.upcase}", category_path(category) %></h2>
           
       </div>
       <hr>
+
       <% category.products[0..6].each do |product| %>
         <%= render product %>
       <%end%>
     </div>
+    </div>
   <% end %>
-</div>
+
+
 </div>
