@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
     if @order.save
       Cart.destroy(session[:cart_id])
       session[:cart_id] = nil
-      OrderWorker.perform_async(@order.id, 5)
+      OrderWorker.perform_async(@order.id)
       flash[:success] = 'Order was successfully created.' 
       redirect_to root_path
 

@@ -1,6 +1,6 @@
 class OrderWorker
   include Sidekiq::Worker
-  def perform(id, count)
+  def perform(id)
     
     OrderNotifier.received(id).deliver_now
   end
