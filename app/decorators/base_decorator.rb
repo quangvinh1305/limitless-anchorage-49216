@@ -5,11 +5,11 @@ class BaseDecorator
     @component = component
   end
 
-  def h
+  def helpers
     ActionController::Base.helpers
   end
 
-  def r
+  def routes
   Rails.application.routes.url_helpers
   end
 end

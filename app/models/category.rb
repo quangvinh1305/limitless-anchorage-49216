@@ -11,7 +11,8 @@ class Category < ActiveRecord::Base
     Category.select(:id, :title).all
   end
 
-  has_many :products;
+  has_many :products
+  has_many :included_products, -> { limit(5) }, :class_name => 'Product'
   def decorate
     @decorate ||= CategoryDecorator.new self
   end

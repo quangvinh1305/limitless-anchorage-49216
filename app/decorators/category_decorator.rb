@@ -1,7 +1,7 @@
 class CategoryDecorator < BaseDecorator
 
   def link
-    h.link_to @component.title.upcase, r.category_path(@component)  
+    helpers.link_to @component.title.upcase, routes.category_path(@component)  
   end
 
 end

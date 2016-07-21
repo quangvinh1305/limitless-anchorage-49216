@@ -9,9 +9,7 @@
           
       </div>
       <hr>
-      <% category.products[0..6].each do |product| %>
-        <%= render product %>
-      <%end%>
+        <%= render category.included_products %>
     </div>
   <% end %>
 </div>

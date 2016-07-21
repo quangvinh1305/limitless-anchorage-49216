@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    @categories = Category.includes(:products).all
+    @categories = Category.includes(:included_products)
   end
 
   def help
