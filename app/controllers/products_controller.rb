@@ -32,6 +32,9 @@ class ProductsController < ApplicationController
     @product.user_id = current_user.id
     respond_to do |format|
       if @product.save
+        SolrProduct.add_product ({:id => @product.id, :title => @product.title, :stock => @product.stock, :price => @product.price,
+                                  :description => @product.description, :pin => @product.pin,
+                                  :category_id => @product.category_id, :image_url => @product.image_url})  
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
