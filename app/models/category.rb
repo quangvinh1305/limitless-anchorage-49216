@@ -12,7 +12,7 @@ class Category < ActiveRecord::Base
   end
 
   has_many :products
-  has_many :included_products, -> { limit(5) }, :class_name => 'Product'
+  has_many :included_products, -> { limit(6) }, :class_name => 'Product'
   def decorate
     @decorate ||= CategoryDecorator.new self
   end

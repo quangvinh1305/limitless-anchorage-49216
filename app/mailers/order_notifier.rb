@@ -6,7 +6,6 @@ class OrderNotifier < ApplicationMailer
   #   en.order_notifier.received.subject
   #
   def received order_id
-    
     @order = Order.find(order_id)
     mail to: @order.email, subject: "The book store order"
   end
