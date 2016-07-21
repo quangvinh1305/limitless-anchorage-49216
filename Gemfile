@@ -17,9 +17,6 @@ gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'haml-rails'
-gem 'sinatra'
-gem 'sunspot_rails'
-gem 'sunspot_solr'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 gem 'vacuum', git: 'https://github.com/hakanensari/vacuum'

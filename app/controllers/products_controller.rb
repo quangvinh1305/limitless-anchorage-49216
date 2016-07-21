@@ -55,12 +55,15 @@ class ProductsController < ApplicationController
 
   def search
     # debugger
-    @search = Product.search do
-      fulltext params[:search]
-      paginate page: params[:page], per_page: 10
-    end
-    @products = @search.results
-    @total_results = @search.total
+    # @search = Product.search do
+    #   fulltext params[:search]
+    #   paginate page: params[:page], per_page: 10
+    # end
+    search = SolrProduct.search_products params[:search], params[:page]
+    product_ids = search['ids']
+    debugger
+    @total_results = search['total']
+    @products = product_ids.any? ? Product.where(id: product_ids) : []
   end
 
   # DELETE /products/1

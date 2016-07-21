@@ -5,11 +5,11 @@ class Product < ActiveRecord::Base
   belongs_to :user
 
 
-  searchable auto_index: false do
-    text :description
-    string :title
-    string :pin
-  end
+  # searchable auto_index: false do
+  #   text :description
+  #   string :title
+  #   string :pin
+  # end
   # validates :title, :description, :image_url, presence: true
   # validates :price, numericality: {greater_than_or_equal_to: 0.01}
 # 

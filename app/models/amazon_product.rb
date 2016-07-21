@@ -8,7 +8,7 @@ class AmazonProduct
     aws_secret_access_key: "8rpb5q169RUtj7HU3njH3zxcKthZJmWbgtrzESXy",
     associate_tag: 'microv'
     )
-    @solr = RSolr.connect :url => 'http://127.0.0.1:8982/solr/development'
+    @solr = RSolr.connect :url => 'http://127.0.0.1:8983/solr/development'
   end
 
   def create_amz_products 
@@ -56,15 +56,16 @@ class AmazonProduct
                               :description => product.description, :pin => product.pin,
                               :category_id => product.category_id, :image_url => product.image_url}  
               @solr.add solr_product
+              @solr.update :data => '<commit/>'
+              @solr.update :data => '<optimize/>'
             end
           end
         end
-        @solr.update :data => '<commit/>'
-        @solr.update :data => '<optimize/>'
+
       end
     end
   end
-
+  
 end
 
 
