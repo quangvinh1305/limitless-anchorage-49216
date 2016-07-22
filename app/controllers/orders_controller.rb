@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
     if line_items.empty?
       flash[:alert] = "your cart is empty"
       redirect_to root_url
-    elsif line_items.any? { |item| item.product.stock <= 0 }
+    elsif line_items.includes(:product).any? { |item| item.product.stock <= 0 }
       flash[:alert] = "Out of stock"
       redirect_to root_path
     elsif line_items.any? { |item| item.quantity > item.product.stock }

@@ -8,9 +8,7 @@
           
       </div>
       <hr>
-        <% @products.each do |product| %>
-          <%= render product %>
-        <%end%>
+        <%= render @products %>
     </div>
  
     <%= will_paginate @products %>
@@ -21,9 +19,7 @@
       <div class="text-center">
         <h1>Newest Item</h1>
         <hr>
-        <% @newest_products.each do |product| %>
-          <%= render product %>
-        <%end%>
+          <%= render @newest_products.includes(:category) %>
       </div>    
   </div>
 </div>

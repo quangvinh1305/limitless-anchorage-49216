@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1.json
   def show
     @products = @category.products.paginate page: params[:page], per_page: 10
-    @newest_products = newest_products
+    @newest_products = Product.newest_products
     add_breadcrumb 'Home', root_path
     add_breadcrumb @category.title
   end

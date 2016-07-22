@@ -1,6 +1,7 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
+  <div class="col-md-12"> <h1>Your Profile <h1></div>
+  <aside class="col-md-2 col-md-offset-1">
     <section class="user_info">
       <h1>
         <%= gravatar_for @user %>
@@ -12,7 +13,7 @@
     <% if @user.products.any? %>
       <h3>Products (<%= @products.count %>)</h3>
       <ol class="products">
-        <%= render @products %>
+        <%= render @products.includes(:category) %>
       </ol>
       <%= will_paginate @products %>
     <% end %>

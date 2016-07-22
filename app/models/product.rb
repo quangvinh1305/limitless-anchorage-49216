@@ -17,7 +17,11 @@ class Product < ActiveRecord::Base
 
   # validates :title, length: {minimum: 10}
   mount_uploader :image, PictureUploader
-
+  
+  def self.newest_products
+    Product.order(id: :desc).limit(5)
+  end
+  
   private
   # ensure that there are no line items referencing this product
   def ensure_not_referenced_by_any_line_item

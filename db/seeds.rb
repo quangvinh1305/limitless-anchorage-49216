@@ -36,12 +36,12 @@ User.create!(name:  "Example User",
               activated_at: Time.zone.now)
 end
 
-
-
-n = 0;
 User.all.each {|u| u.microposts.create!(content: 'Micropost #{n++} ') }
 
-
+Category::CATEGORIES.each do |category, br_node|
+  Category.create(title: category)
+  puts "#{category} is created"
+end
 
 
 

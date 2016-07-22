@@ -15,5 +15,6 @@ class Category < ActiveRecord::Base
     list_categories   
   end
 
-  has_many :products;
+  has_many :products
+  has_many :included_products, -> {limit(7)}, :class_name => 'Product'
 end
