@@ -1,7 +1,7 @@
 <div class="col-md-4 col-lg-3 col-sm-6 col-xs-10">
   <div class="panel panel-success">
     <div class="panel-heading">
-      <%= link_to "#{truncate(strip_tags(product.title), length: 30, separator: ' ')}",product_path(product)%>
+             <%= product.decorate.link%>
     </div>
     <div class="panel-body">
       <div class="text-center">

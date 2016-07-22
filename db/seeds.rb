@@ -12,12 +12,12 @@ Product.destroy_all
 Cart.destroy_all
 LineItem.destroy_all
 Order.destroy_all
-User.create!(name:  "Example User",
-             email: "quangvinh.1305@gmail.com",
-             address: "15/14 Vo Duy Ninh Street",
-             phone_number: "0987556556",
-             password:              "foobar",
-             password_confirmation: "foobar",
+User.create!(name:  'Example User',
+             email: 'quangvinh.1305@gmail.com',
+             address: '15/14 Vo Duy Ninh Street',
+             phone_number: '0987556556',
+             password:              'foobar',
+             password_confirmation: 'foobar',
              admin:     true,
              activated: true,
              activated_at: Time.zone.now)
@@ -25,11 +25,11 @@ User.create!(name:  "Example User",
 99.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
-  password = "password"
+  password = 'password'
   User.create!(name:  name,
               email: email,
-              address: "15/14 Vo Duy Ninh Street",
-              phone_number: "0987556556",
+              address: '15/14 Vo Duy Ninh Street',
+              phone_number: '0987556556',
               password:              password,
               password_confirmation: password,
               activated: true,

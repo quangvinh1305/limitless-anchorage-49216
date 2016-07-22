@@ -5,10 +5,9 @@ class OrderNotifier < ApplicationMailer
   #
   #   en.order_notifier.received.subject
   #
-  def received email, order_id
-    
+  def received order_id
     @order = Order.find(order_id)
-    mail to: email, subject: "The book store order"
+    mail to: @order.email, subject: "The book store order"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -18,7 +17,6 @@ class OrderNotifier < ApplicationMailer
   #
   def shipped
     @greeting = "Hi"
-
     mail to: "to@example.org"
   end
 end

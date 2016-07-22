@@ -42,14 +42,10 @@ class OrdersController < ApplicationController
       @order = Order.new
       if logged_in?
         user = current_user
-        @order[:name] = user.name
-        @order[:email] = user.email
-        @order[:address] = user.address
-        @order[:phone_number] = user.phone_number
-      end    
+        @order.assign_attributes({:name => user.name, :email => user.email,
+                                  :address => user.address, :phone_number => user.phone_number})
+      end
     end
-
-    
   end
 
   # GET /orders/1/edit
@@ -59,13 +55,12 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    @cart = current_cart;
+    @cart = current_cart
     @order.add_line_items_from_cart(@cart)
-    line_items = @order.line_items;
+    line_items = @order.line_items
 
     if line_items.any? { |item| item.product.stock <= 0 }
-      redirect_to root_url, 
-      flash[:alert] = "Item is out of stock"
+      redirect_to root_url, flash[:alert] = 'Item is out of stock'
       line_items.each { |item| item.destroy if item.product.stock <= 0 }
       return
     end
@@ -78,16 +73,16 @@ class OrdersController < ApplicationController
       @order.remove_product_in_stock
       Cart.destroy(session[:cart_id])
       session[:cart_id] = nil
-      send_order_email(@order)
+      OrderWorker.perform_async(@order.id)
       flash[:success] = 'Order was successfully created.' 
       redirect_to root_path
 
     else
       @cart = current_cart
       flash.now[:danger] = "Please try"
-      render :new 
+      render :new
     end
-    
+
   end
 
   # PATCH/PUT /orders/1
@@ -101,10 +96,10 @@ class OrdersController < ApplicationController
     end
 
     if @order.update_attributes(status: status)
-      redirect_to admin_path 
+      redirect_to admin_path
       flash[:success] = 'Order was successfully updated.'
     else
-      redirect_to admin_path 
+      redirect_to admin_path
       flash[:warning] = 'Update errors.'
     end
 

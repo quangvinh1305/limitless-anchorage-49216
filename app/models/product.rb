@@ -21,7 +21,10 @@ class Product < ActiveRecord::Base
   def self.newest_products
     Product.order(id: :desc).limit(5)
   end
-  
+  def decorate
+    @decorate ||= ProductDecorator.new self
+  end
+
   private
   # ensure that there are no line items referencing this product
   def ensure_not_referenced_by_any_line_item

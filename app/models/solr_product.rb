@@ -2,7 +2,7 @@ class SolrProduct
 
   def self.search_products query, page
     response_hashed = {}
-    response_hashed = SolrConnectionProducts.paginate page, 10, 'select', :params => { :q => query}
+    response_hashed = SolrConnectionProducts.paginate page, 10, 'select', :params => {:q => query}
   end
 
   def self.add_product products

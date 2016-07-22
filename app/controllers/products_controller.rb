@@ -28,8 +28,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
-    @product.user_id = current_user.id
+    @product = current_user.products.build(product_params)
     respond_to do |format|
       if @product.save
         SolrProduct.add_product ({:id => @product.id, :title => @product.title, :stock => @product.stock, :price => @product.price,
