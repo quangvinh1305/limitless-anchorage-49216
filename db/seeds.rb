@@ -42,10 +42,4 @@ Category::CATEGORIES.each do |category, br_node|
   Category.create(title: category)
   puts "#{category} is created"
 end
-
-
-
-# amazon = AmazonProduct.new
-# amazon.create_amz_products
-
     
