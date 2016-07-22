@@ -73,8 +73,8 @@ class OrdersController < ApplicationController
       @order.remove_product_in_stock
       Cart.destroy(session[:cart_id])
       session[:cart_id] = nil
-      OrderWorker.perform_async(@order.id)
-      flash[:success] = 'Order was successfully created.' 
+      OrderWorker.perform_async(@order.id, 5)
+      flash[:success] = 'Order was successfully created.'
       redirect_to root_path
 
     else

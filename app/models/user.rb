@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
-  validates :name, :address,  presence: true, length: { maximum: 50 }
+  validates :name, :address, presence: true, length: { maximum: 50 }
   validates :phone_number, presence: true, length: { maximum: 12 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(digest).is_password?(token)
   end
 
-    # Forgets a user.
+  # Forgets a user.
   def forget
     update_attribute(:remember_digest, nil)
   end
@@ -58,22 +58,23 @@ class User < ActiveRecord::Base
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
   end
+
   # Defines a proto-feed.
   # See "Following users" for the full implementation.
   def feed
     Micropost.where("user_id = ?", id)
   end
+
   private
 
-    # Converts email to all lower-case.
-    def downcase_email
-      self.email = email.downcase
-    end
+  # Converts email to all lower-case.
+  def downcase_email
+    self.email = email.downcase
+  end
 
-    # Creates and assigns the activation token and digest.
-    def create_activation_digest
-      self.activation_token  = User.new_token
-      self.activation_digest = User.digest(activation_token)
-    end
-
+  # Creates and assigns the activation token and digest.
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
 end
