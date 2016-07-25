@@ -26,7 +26,8 @@
           <%= form_tag order_path(order), method: :patch, remote: true do %>
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
             <td class="col-sm-1 col-md-1" style="text-align: center">
-            <%= number_field_tag :status, order.status, class: "form-control", min: 1, max: 5, onchange: "this.form.submit()"%>
+            <%= select_tag :status, options_for_select(Order::SHIPPING_STATUS_MAP, :selected=> order.status),  class: "form-control", min: 1, max: 5, onchange: "this.form.submit()"%>
+
             </td>
           <%end%>
           <td><%= link_to 'Show', order %></td>
@@ -40,3 +41,4 @@
 </div>
 
 
+SHIPPING_STATUS_MAP

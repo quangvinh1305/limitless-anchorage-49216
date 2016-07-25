@@ -1,5 +1,5 @@
+# This class is used to get data form amazon.
 class SolrProduct
-
   def self.search_products query, page
     SolrConnectionProducts.paginate page, 10,
                                     'select',
@@ -12,4 +12,3 @@ class SolrProduct
     SolrConnectionProducts.update data: '<optimize/>'
   end
 end
-

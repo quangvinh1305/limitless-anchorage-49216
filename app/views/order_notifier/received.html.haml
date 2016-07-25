@@ -1,9 +1,12 @@
-%h1 
+%h1
   =  "Hi  " + @order.name
 %p Thank you for your recent order from The Book Shop.
 
-%strong You ordered the following items:	
+%strong You ordered the following items:
 
 %strong
   = render @order.line_items
 %p we'll send you a separate e-mail when your order ships.
+%p
+  = "Please check your details order with OrderID: #{@order.id} at link bellow:"
+  = link_to "Order Details", order_path(@order)

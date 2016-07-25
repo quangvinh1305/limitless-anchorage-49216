@@ -21,8 +21,7 @@ class AmazonProduct
             "BrowseNode" => Category::CATEGORIES[category.title],
             "ResponseGroup" => "Medium, Images, Offers, EditorialReview"
         }).parse
-        n = 0
-        responses = responses['ItemSearchResponse']['Items']['Item'];
+        responses = responses['ItemSearchResponse']['Items']['Item']
         responses[0..19].each do |item|
           return "Complete" if item == nil
           Product.find_or_create_by(pin: item["ASIN"]) do |product|

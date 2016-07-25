@@ -31,9 +31,9 @@ class LineItemsController < ApplicationController
         redirect_to @cart
         flash[:success] = 'Line item was successfully created.'
       else
-        render "new" 
+        render "new"
       end
-    
+
   end
 
   # PATCH/PUT /line_items/1
@@ -42,17 +42,18 @@ class LineItemsController < ApplicationController
     @line_item = LineItem.find(params[:id]);
     quant = params[:quantity].to_i
     warning_message = nil
-    
+
     if quant > @line_item.product.stock
       quant = @line_item.product.stock
       warning_message = "We just have #{@line_item.product.stock}: #{@line_item.product.title}"
     end
     if quant <= 0
       flash[:warning] = '#{@line_item.product.title} is invalid quantity.'
-      redirect_to current_cart      
+      redirect_to current_cart
+      return
     end
     if @line_item.update_attributes(quantity: quant)
-      flash[:success] = warning_message.nil? ? "#{@line_item.product.title} is successfully updated" : warning_message; 
+      flash[:success] = warning_message.nil? ? "#{@line_item.product.title} is successfully updated" : warning_message;
       redirect_to current_cart
     else
       flash[:warning] = '#{@line_item.product.title} is not updated.'
@@ -77,7 +78,7 @@ class LineItemsController < ApplicationController
     else
       flash[:success] = "Cart is successfully updated."
       redirect_to cart
-    end  
+    end
 
   end
 

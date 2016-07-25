@@ -4,13 +4,13 @@
 
   <% @categories.each do |category| %>
     <div class="row">
-    <div class="col-md-12">
-      <div class="text-center">
-        <h2><%= link_to "#{category.title.upcase}", category_path(category) %></h2>
+      <div class="col-md-12">
+        <div class="text-center">
+          <h2><%= link_to "#{category.title.upcase}", category_path(category) %></h2>
+        </div>
       </div>
       <hr>
         <%= render category.included_products.includes(:category) %>
-    </div>
     </div>
   <% end %>
 

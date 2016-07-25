@@ -1,5 +1,12 @@
 class Order < ActiveRecord::Base
   PAYMENT_TYPES = [ "Check", "Credit card", "Purchase order" ]
+  SHIPPING_STATUS = %w{New Preparing Shipping Done Cancel Refund}
+  SHIPPING_STATUS_MAP = { "New" => "0",
+                 "Preparing" => "1",
+                 "Shipping" => "2",
+                 "Done" => "3",
+                 "Cancel" => "4",
+                 "Refund" => "5" }
   has_many :line_items, dependent: :destroy
   # ...
   validates :name, :address, :email, :phone_number, presence: true
@@ -11,6 +18,7 @@ class Order < ActiveRecord::Base
       line_items << item
     end
   end
+
 
   def remove_product_in_stock
     line_items.each do |item|

@@ -1,29 +1,38 @@
 <p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-12">
+    <h4>Check your order status:</h4>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <span class="prefix">Name</span>
+            <span class="label label-success"> <%= @order.name %></span>
+        </li>
+        <li class="list-group-item">
+            <span class="prefix">Date created:</span>
+            <span class="label label-success"><%= @order.created_at %></span>
+        </li>
+        <li class="list-group-item">
+            <span class="prefix">Last update:</span>
+            <span class="label label-success"><%= @order.updated_at %></span>
+        </li>
+        <li class="list-group-item">
+            <span class="prefix">status:</span>
+            <span class="label label-success"><%=Order::SHIPPING_STATUS[@order.status]%></span>
+        </li>
+        <li class="list-group-item">
+            <span class="prefix">Email:</span>
+            <span class="label label-success"><%= @order.email %></span>
+        </li>
+        <li class="list-group-item">
+            <span class="prefix">Address:</span>
+            <span class="label label-success"><%= @order.address %></span>
+        </li>
+        <li class="list-group-item">
+            <span class="prefix">Pay Type:</span>
+            <span class="label label-success"><%= @order.pay_type %></span>
+        </li>
+    </ul>
+  </div>
+<div>
 
-<p>
-  <strong>User:</strong>
-  <%= @order.user_id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @order.name %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @order.address %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @order.email %>
-</p>
-
-<p>
-  <strong>Pay type:</strong>
-  <%= @order.pay_type %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<%= link_to 'Edit', edit_order_path(@order) %>

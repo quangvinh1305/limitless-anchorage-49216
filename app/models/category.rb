@@ -6,7 +6,12 @@ class Category < ActiveRecord::Base
                  "Computers & Technology" => "5" }
 
   def self.get_categories
-    Category.select(:id, :title).all
+    results = {}
+    category_records = Category.select(:id, :title)
+    category_records.each do |category|
+      results[category.title] = category.id
+    end
+    results
   end
 
   has_many :products
