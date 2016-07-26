@@ -1,5 +1,5 @@
 class AddCategoryIdToProducts < ActiveRecord::Migration
   def change
-    add_column :products, :category_id, :integer
+    add_reference :products, :category, index: true
   end
 end
