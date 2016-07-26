@@ -36,5 +36,4 @@ feature "Module 5 Order Management", :type => :routing do
     expect(current_path).to eq(admin_path)
   end
 
-
 end

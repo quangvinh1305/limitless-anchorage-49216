@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
       if @product.save
         SolrProduct.add_product ({:id => @product.id, :title => @product.title, :stock => @product.stock, :price => @product.price,
                                   :description => @product.description, :pin => @product.pin,
-                                  :category_id => @product.category_id, :image_url => @product.image_url})  
+                                  :category_id => @product.category_id, :image_url => @product.image_url})
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
@@ -61,9 +61,8 @@ class ProductsController < ApplicationController
     add_breadcrumb "home", root_path
     add_breadcrumb "search"
     @solr_search = SolrProduct.search_products params[:search], params[:page]
-    product_ids = @solr_search['response']['docs'].any? ? @solr_search['response']['docs'].map{ |x| x["id"]} : []
-    @total_results = @solr_search['response']['numFound'].to_i
-    @products = product_ids.any? ? Product.where(id: product_ids) : []
+    @total_results = @solr_search['total_results']
+    @products = @solr_search['ids'].any? ? Product.where(id: @solr_search['ids']) : []
   end
 
   # DELETE /products/1

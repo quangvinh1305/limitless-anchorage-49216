@@ -39,7 +39,7 @@ class LineItemsController < ApplicationController
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
-    @line_item = LineItem.find(params[:id]);
+    @line_item = LineItem.find(params[:id])
     quant = params[:quantity].to_i
     warning_message = nil
 
@@ -53,7 +53,7 @@ class LineItemsController < ApplicationController
       return
     end
     if @line_item.update_attributes(quantity: quant)
-      flash[:success] = warning_message.nil? ? "#{@line_item.product.title} is successfully updated" : warning_message;
+      flash[:success] = warning_message.nil? ? "#{@line_item.product.title} is successfully updated" : warning_message
       redirect_to current_cart
     else
       flash[:warning] = '#{@line_item.product.title} is not updated.'
@@ -74,7 +74,7 @@ class LineItemsController < ApplicationController
     @line_item.destroy
     if cart.line_items.empty?
       redirect_to root_path
-      flash[:warning] = "Cart is successfully updated. Countinue shopping now.";
+      flash[:warning] = "Cart is successfully updated. Countinue shopping now."
     else
       flash[:success] = "Cart is successfully updated."
       redirect_to cart

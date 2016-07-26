@@ -1,9 +1,12 @@
 # This class is used to get data form amazon.
 class SolrProduct
   def self.search_products query, page
-    SolrConnectionProducts.paginate page, 10,
+    resp_results = {}
+    @solr_search = SolrConnectionProducts.paginate page, 10,
                                     'select',
                                     params: { q: query }
+    resp_results['ids'] = @solr_search['response']['docs'].any? ? @solr_search['response']['docs'].map{ |x| x["id"]} : []
+    resp_results['total_results'] = @solr_search['response']['numFound'].to_i
   end
 
   def self.add_product products

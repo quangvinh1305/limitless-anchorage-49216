@@ -6,16 +6,12 @@ class Category < ActiveRecord::Base
                  "Computers & Technology" => "5" }
 
   def self.get_categories
-    results = {}
-    category_records = Category.select(:id, :title)
-    category_records.each do |category|
-      results[category.title] = category.id
-    end
-    results
+    pluck(:title, :id).to_h
   end
 
   has_many :products
   has_many :included_products, -> { limit(7) }, :class_name => 'Product'
+
   def decorate
     @decorate ||= CategoryDecorator.new self
   end

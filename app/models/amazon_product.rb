@@ -25,9 +25,9 @@ class AmazonProduct
         responses[0..19].each do |item|
           return "Complete" if item == nil
           Product.find_or_create_by(pin: item["ASIN"]) do |product|
-            if item["ItemAttributes"]["Title"] != nil
+            if item["ItemAttributes"]["Title"]
               product.title = item["ItemAttributes"]["Title"]
-              if item["EditorialReviews"] != nil
+              if item["EditorialReviews"]
                 editorial_review = item["EditorialReviews"]["EditorialReview"]
                 if editorial_review == nil
                   product.description = "This product has no description yet"
@@ -40,7 +40,7 @@ class AmazonProduct
               product.price = item["ItemAttributes"]["ListPrice"] != nil ? item["ItemAttributes"]["ListPrice"]["Amount"].to_d / 100 : item["OfferSummary"]["LowestNewPrice"]["Amount"].to_d / 100
               product.category_id = category.id
               if item["LargeImage"] == nil
-                if item["ImageSets"] != nil
+                if item["ImageSets"]
                   product.remote_image_url = item["ImageSets"]["ImageSet"].is_a?(Array) ? item["ImageSets"]["ImageSet"].first["LargeImage"]["URL"] : item["ImageSets"]["ImageSet"]["LargeImage"]["URL"]
                 else
                   product.remote_image_url = "https://images-na.ssl-images-amazon.com/images/G/01/x-site/icons/no-img-sm._V192198896_BO1,204,203,200_.gif"

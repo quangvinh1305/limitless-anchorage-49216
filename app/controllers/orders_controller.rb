@@ -117,11 +117,10 @@ class OrdersController < ApplicationController
 
   private
     def admin_authentication
-      if logged_in?
-        if !current_user.admin?
-          flash[:danger] = "You don't have permission for this page";
-          redirect_to login_path
-        end
+      if logged_in? && !current_user.admin?
+        flash[:danger] = "You don't have permission for this page"
+        redirect_to login_path
+
       end
     end
     # Use callbacks to share common setup or constraints between actions.
