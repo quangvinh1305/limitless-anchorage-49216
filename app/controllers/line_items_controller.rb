@@ -48,7 +48,7 @@ class LineItemsController < ApplicationController
       warning_message = "We just have #{@line_item.product.stock}: #{@line_item.product.title}"
     end
     if quant <= 0
-      flash[:warning] = '#{@line_item.product.title} is invalid quantity.'
+      flash[:warning] = @line_item.product.title + ' is invalid quantity.'
       redirect_to current_cart
       return
     end

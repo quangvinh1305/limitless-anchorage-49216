@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       UserMailer.account_activation(@user).deliver_now
-      
+
       flash[:info] = "Please check your email to activate your account."
       p root_url
       redirect_to root_url
@@ -92,6 +92,6 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user)
-                  .permit(:name, :email, :password, :password_confirmation)
+                  .permit(:name, :email, :password, :password_confirmation, :address, :phone_number)
     end
 end
